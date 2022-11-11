@@ -1,0 +1,25 @@
+{
+	"id": 1
+	"first_name" "John",
+	"last_name": "Doe",
+	"email": "johndoe@mail.com"
+}
+
+{
+	"id": 100
+	"name": "salad",
+	"price": 5.99,
+    "image_link": "https://www.google.com"
+}
+
+{
+    "id": 1
+    "customer_id": 1,
+    "product_id": 100,
+    "price": 5.99,
+    "quantity": 1,
+    "tps": 0.5,
+    "tvq": 0.5,
+    "discount": 0,
+    "total": 6.99
+}

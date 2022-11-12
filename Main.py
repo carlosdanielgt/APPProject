@@ -1,8 +1,12 @@
-# implement listener pattern
+from customer import Customer
+from manager import BaseManager
 
-# Create main function
+
 def main():
-    print("Hello world")
+    BaseManager.set_connection()
+    print("Connection set")
+    customers = Customer.objects.select('first_name')
+    print(customers)
 
 
 if __name__ == "__main__":

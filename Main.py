@@ -1,8 +1,14 @@
+from http.server import HTTPServer
+from threading import Thread
 from customer import Customer
 from manager import BaseManager
+from server import MyServer
+
+HOSTNAME = "localhost"
+SERVERPORT = 8080
 
 
-def main():
+def connectdatabase():
     BaseManager.set_connection()
     print("Connection set")
     customers = Customer.objects.select('first_name')
@@ -10,4 +16,14 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    connectdatabase()
+    webServer = HTTPServer((HOSTNAME, SERVERPORT), MyServer)
+    print("Server started http://%s:%s" % (HOSTNAME, SERVERPORT))
+
+    try:
+        webServer.serve_forever()
+    except KeyboardInterrupt:
+        pass
+
+    webServer.server_close()
+    print("Server stopped.")

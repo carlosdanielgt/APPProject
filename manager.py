@@ -3,7 +3,7 @@ import sqlite3
 import os
 
 from utils import Field
-DATABASEFILE = 'database.db'
+DATABASEFILE = os.path.dirname(os.path.realpath(__file__)) + '/database.db'
 SCHEMAFILE = os.path.dirname(os.path.realpath(__file__)) + '/myschema.sql'
 print(SCHEMAFILE)
 

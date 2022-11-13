@@ -1,6 +1,5 @@
 import itertools
 import sqlite3
-import psycopg2
 import os
 
 from utils import Field
@@ -20,12 +19,6 @@ class BaseManager:
             connection.executescript(fp.read())
         connection.commit()
         cls.connection = connection
-
-    # @classmethod
-    # def set_connection(cls, database_settings):
-    #     connection = psycopg2.connect(**database_settings)
-    #     connection.autocommit = True
-    #     cls.connection = connection
 
     @classmethod
     def _get_cursor(cls):

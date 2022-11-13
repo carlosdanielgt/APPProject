@@ -3,6 +3,7 @@ import json
 from customer import Customer
 from product import Product
 from order import Order
+from orderprocessing.calculator import Calculator
 
 DEFAULT_ENCODING = 'utf-8'
 
@@ -48,17 +49,18 @@ class MyServer(BaseHTTPRequestHandler):
             self.wfile.write(bytes("</body></html>", DEFAULT_ENCODING))
 
     def do_POST(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        self.wfile.write(
-            bytes("<html><head><title>https://pythonbasics.org</title></head>", DEFAULT_ENCODING))
-        self.wfile.write(bytes("<body>", DEFAULT_ENCODING))
-        self.wfile.write(
-            bytes("<p>POST request for {}</p>".format(self.path), DEFAULT_ENCODING))
-        self.wfile.write(bytes("<p>POST body:</p>", DEFAULT_ENCODING))
-        self.wfile.write(
-            bytes("<p><pre>{}</pre></p>".format(post_data.decode('utf-8')), DEFAULT_ENCODING))
-        self.wfile.write(bytes("</body></html>", DEFAULT_ENCODING))
+        if self.path == '/api/orders':
+            # get request body
+            content_length = int(self.headers['Content-Length'])
+            body = self.rfile.read(content_length)
+            json_items = json.loads(body.decode(DEFAULT_ENCODING))
+            print(json_items)
+            # create order
+            # order = Order()
+            calculator = Calculator()
+            calculator.calculate(json_items)
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(
+                bytes(json.dumps({'response': 'ok'}), DEFAULT_ENCODING))

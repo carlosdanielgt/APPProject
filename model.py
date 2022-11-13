@@ -20,9 +20,11 @@ class BaseModel(metaclass=MetaModel):
             setattr(self, field_name, value)
 
     def __repr__(self):
+        dq = '"'
         attrs_format = ", ".join(
-            [f'{field}={value}' for field, value in self.__dict__.items()])
-        return f"<{self.__class__.__name__}: ({attrs_format})>"
+            [f'"{field}":{value if str(value).isnumeric() else dq + value + dq}' for field, value in self.__dict__.items()])
+        # return f"{{{self.__class__.__name__}: {{{attrs_format}}}}}"
+        return f"{{{attrs_format}}}"
 
     @classmethod
     def get_fields(cls):

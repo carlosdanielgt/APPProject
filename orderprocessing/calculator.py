@@ -1,4 +1,4 @@
-from strategy import Context
+from Strategy import Context
 
 
 class Calculator:

@@ -1,9 +1,9 @@
 from http.server import BaseHTTPRequestHandler
 import json
+import random
 from customer import Customer
 from product import Product
 from order import Order
-from orderprocessing.calculator import Calculator
 
 DEFAULT_ENCODING = 'utf-8'
 
@@ -33,13 +33,18 @@ class MyServer(BaseHTTPRequestHandler):
             content_length = int(self.headers['Content-Length'])
             body = self.rfile.read(content_length)
             json_items = json.loads(body.decode(DEFAULT_ENCODING))
-            print(json_items)
-            # create order
-            # order = Order()
-            calculator = Calculator()
-            calculator.calculate(json_items)
+            # generate random number
+            customer_id = random.randint(1, 2)
+            customer = Customer.getCustomerById(customer_id)
+            product = Product.getProductById(json_items['product_id'])
+            orderdetails = {}
+            orderdetails['customer'] = customer
+            orderdetails['items'] = json_items
+            orderdetails['product'] = product
+            calculated_order = Order.calculateOrderTotal(self, orderdetails)
+            print(calculated_order)
             self.send_response(200)
-            self.send_header("Content-type", "application/json")
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write(
-                bytes(json.dumps({'response': 'ok'}), DEFAULT_ENCODING))
+                bytes(str(calculated_order), DEFAULT_ENCODING))

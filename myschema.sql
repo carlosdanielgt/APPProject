@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS customer (
 	id INTEGER PRIMARY KEY,
 	first_name TEXT NOT NULL,
 	last_name TEXT NOT NULL,
-	email TEXT NOT NULL UNIQUE
+	email TEXT NOT NULL UNIQUE,
+	customer_type TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS product (

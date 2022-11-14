@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from ast import List
 
 
 class Strategy(ABC):
@@ -12,7 +11,7 @@ class Strategy(ABC):
     """
 
     @abstractmethod
-    def do_algorithm(self, data: List):
+    def do_algorithm(self, data: dict):
         pass
 
 
@@ -47,7 +46,7 @@ class Context():
 
         self._strategy = strategy
 
-    def do_some_business_logic(self, items) -> None:
+    def do_some_business_logic(self, orderdetails) -> None:
         """
         The Context delegates some work to the Strategy object instead of
         implementing multiple versions of the algorithm on its own.
@@ -55,8 +54,7 @@ class Context():
 
         # ...
 
-        print("Context: Sorting data using the strategy (not sure how it'll do it)")
-        result = self._strategy.do_algorithm(self, ["a", "b", "c", "d", "e"])
-        print(",".join(result))
-
+        print("Context: Calculating discounts and total using the strategy (not sure how it'll do it)")
+        result = self._strategy.do_algorithm(orderdetails)
+        return result
         # ...

@@ -1,4 +1,5 @@
 from manager import BaseManager
+from utils import Miscellaneous
 
 
 class MetaModel(type):
@@ -22,7 +23,7 @@ class BaseModel(metaclass=MetaModel):
     def __repr__(self):
         dq = '"'
         attrs_format = ", ".join(
-            [f'"{field}":{value if str(value).isnumeric() else dq + value + dq}' for field, value in self.__dict__.items()])
+            [f'"{field}":{value if (str(value).isnumeric() or Miscellaneous.is_float(value)) else dq + value + dq}' for field, value in self.__dict__.items()])
         # return f"{{{self.__class__.__name__}: {{{attrs_format}}}}}"
         return f"{{{attrs_format}}}"
 

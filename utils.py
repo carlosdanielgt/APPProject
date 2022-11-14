@@ -94,3 +94,12 @@ class Field:
 
     def __repr__(self):
         return f"<{self.__class__.__name__}: {self.name} ({self.data_type})>"
+
+
+class Miscellaneous:
+    def is_float(a_string):
+        try:
+            float(a_string)
+            return True
+        except ValueError:
+            return False

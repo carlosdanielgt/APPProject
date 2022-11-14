@@ -5,7 +5,6 @@ import os
 from utils import Field
 DATABASEFILE = os.path.dirname(os.path.realpath(__file__)) + '/database.db'
 SCHEMAFILE = os.path.dirname(os.path.realpath(__file__)) + '/myschema.sql'
-print(SCHEMAFILE)
 
 
 class BaseManager:
@@ -63,6 +62,7 @@ class BaseManager:
 
         # Execute query
         cursor = self._get_cursor()
+        query = query.replace("%s", "?")
         cursor.execute(query, vars)
 
         # Fetch data obtained with the previous query execution and transform it into `model_class` objects.

@@ -16,5 +16,5 @@ class Order(BaseModel):
         return json_string
 
     def calculateOrderTotal(self, orderdetails):
-        calculator = Calculator()
+        calculator = Calculator.instance()
         return calculator.calculate(orderdetails)
